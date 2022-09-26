@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+    <title>Toy Store</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+    <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous" />
+    <link href="style.css" rel="stylesheet"/>
+    <script src="./button.js"></script>
+    <script src="./marker.js"></script>
+    <script src="./MarkerHandler.js"></script>
+    <script src="./star.js"></script>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.4/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+        apiKey: "AIzaSyCaEFN3-IfcQ71bvie6_8r4jxBX9D0XmRA",
+        authDomain: "toy-store-efca3.firebaseapp.com",
+        projectId: "toy-store-efca3",
+        storageBucket: "toy-store-efca3.appspot.com",
+        messagingSenderId: "76349229826",
+        appId: "1:76349229826:web:2cda89be00f56e610b101b",
+        measurementId: "G-MFFGPSXNRH"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+    </head>
+
+    <body style="margin : 0px; overflow: hidden;">
+    <a-scene 
+        embedded vr-mode-ui="enabled: false"     
+        arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;debugUIEnabled: false;"
+        gesture-detector>
+            <a-entity camera></a-entity>
+        <a-assets>
+        <a-asset-item id="robot-model" src="./Robot.glb">
+        </a-asset-item>
+        </a-assets>
+        
+        <a-marker id="robot-marker" type="pattern" url="./pattern-wall-e.patt" cursor="rayOrigin:mouse">
+        <a-entity id="robot-3d-model" position="1 -1 0" scale="0.025 0.025 0.025" rotation="-90 0 0"
+            gltf-model="#robot-model"
+            gesture-handler
+            >
+        </a-entity>
+        <a-plane position="0 0 0" width="1.5" height="1.5" rotation="-90 0 0">
+            <a-plane position="0 0.89 0.02" width="1.49" height="0.3" rotation="0 0 0" color="#F0C30F">
+            <a-entity position="0 0 0.1" rotation="0 0 0" text="font:monoid;value:ROBOT; color: rgb(0,0,0); width:1.8; height:1; align:center;">
+            </a-entity>
+            </a-plane>
+                <a-entity position="0 0 0.1" rotation="0 0 0" text="color: black; align: center; width: 2; font: monoid; value: Remote control robot! Ages 8-16"> 
+                </a-entity>
+            </a-plane>
+        </a-marker>
+    </a-scene>
+    <div id="button-div"></div>
+    </body>
+</html>
